@@ -2,26 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+
+.heading {
+    background-image: url('../resources/bbblurry.svg');
+    background-size: cover; /* Adjust as needed */
+    background-repeat: no-repeat;
+    /* Additional background properties */
+    padding-bottom: 100px;
+    /* height: 100vh; */
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  h1 {
+    font-size: 100px;
+    margin-bottom: 10px;
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 100;
+    text-align: center;
+    margin-top: 0;
+    padding-top: 110px;
+    color: white;
+  }
+
+/* SideBar */
+.sidenav {
+    width: 80%;
+    height: 25vh;
+    /* position: -webkit-sticky; */
+    position: sticky;
+    top: 0;
+    /* z-index: 0; */
+  }
+  
+  .container {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  label {
+    display: block;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'Nanum Myeongjo', serif;
+  }
+
+
+  /* Side Bar Content */
+input[type="color"] {
+    border-radius: 9px;
+    width: 200px;
+    margin-bottom: 30px;
+    padding: 4px;
+    border: none;
+    background-image: url('../resources/bbblurry.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  input[type="checkbox"]{
+    margin-bottom: 30px;
+  }
+  
+  input[type="range"] {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    height: 12px; /* Set the height of the slider */
+    background-image: url('../resources/bbblurry.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 5px; /* Set the border radius */
+    outline: none; /* Remove the default outline */
+    width: 200px;
+    margin-bottom: 30px;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 16px; /* Set the width of the thumb */
+    height: 16px; /* Set the height of the thumb */
+    background: #c685ff; /* Set the color of the thumb */
+    border-radius: 50%; /* Set the border radius to create a circle */
+    cursor: pointer; /* Set cursor style on hover */
+  }
