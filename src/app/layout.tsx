@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         
         <main style={{ minHeight: "calc(100vh - 136px)" }}>{children}</main>
-        <footer className="w-full bg-black text-white flex justify-center gap-6 h-20"></footer>
+        {/* <footer className="w-full bg-black text-white flex justify-center gap-6 h-20"></footer> */}
       </body>
     </html>
   );

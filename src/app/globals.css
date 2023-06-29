@@ -91,3 +91,25 @@ input[type="color"] {
     border-radius: 50%; /* Set the border radius to create a circle */
     cursor: pointer; /* Set cursor style on hover */
   }
+
+
+
+
+  .search {
+    /* position: sticky; */
+    top: 0;
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+    /* z-index: auto; */
+  }
+  
+  .search input {
+    padding: 10px;
+    font-size: 25px;
+    font-family: 'Nanum Myeongjo', serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 430px;
+  }
+  
