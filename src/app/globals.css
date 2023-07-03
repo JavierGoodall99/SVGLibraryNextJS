@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 
 .heading {
-    background-image: url('../resources/bbblurry.svg');
+  background: linear-gradient(to bottom, #006098, #00A7DB);
     background-size: cover; /* Adjust as needed */
     background-repeat: no-repeat;
     /* Additional background properties */
@@ -17,7 +18,7 @@
   h1 {
     font-size: 100px;
     margin-bottom: 10px;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 100;
     text-align: center;
     margin-top: 0;
@@ -49,7 +50,7 @@
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 5px;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Roboto', sans-serif;
   }
 
 
@@ -60,7 +61,7 @@ input[type="color"] {
     margin-bottom: 30px;
     padding: 4px;
     border: none;
-    background-image: url('../resources/bbblurry.svg');
+    background: linear-gradient(to bottom, #006098, #00A7DB);
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -73,7 +74,7 @@ input[type="color"] {
     -webkit-appearance: none; /* Remove default styling */
     appearance: none;
     height: 12px; /* Set the height of the slider */
-    background-image: url('../resources/bbblurry.svg');
+    background: linear-gradient(to bottom, #006098, #00A7DB);
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 5px; /* Set the border radius */
@@ -87,7 +88,7 @@ input[type="color"] {
     appearance: none;
     width: 16px; /* Set the width of the thumb */
     height: 16px; /* Set the height of the thumb */
-    background: #c685ff; /* Set the color of the thumb */
+    background: #000000; /* Set the color of the thumb */
     border-radius: 50%; /* Set the border radius to create a circle */
     cursor: pointer; /* Set cursor style on hover */
   }
@@ -107,7 +108,7 @@ input[type="color"] {
   .search input {
     padding: 10px;
     font-size: 25px;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Roboto', sans-serif;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 430px;

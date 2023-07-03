@@ -11,12 +11,9 @@ interface Icons {
   }
 
 function page() {
-
     const iconsDir = path.join(process.cwd(), 'src', 'resources', 'icons');
     const iconFiles = fs.readdirSync(iconsDir);
-  
     const icons: Icons = {};
-  
     iconFiles.forEach((file) => {
       const iconName = file.replace('.svg', '');
       const iconPath = path.join(iconsDir, file);
@@ -28,7 +25,7 @@ function page() {
   return (
     <div>  
         <div className="heading">
-            <h1>Welcome to the Icon App</h1>
+            <h1>DataBalk Icon Library 2.0</h1>
         </div>
 
         <IconPage icons={icons}/>
