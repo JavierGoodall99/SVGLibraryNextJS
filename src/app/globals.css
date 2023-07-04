@@ -114,3 +114,16 @@ input[type="color"] {
     width: 430px;
   }
   
+
+
+  .slider .ms-Slider-thumb {
+    background-color: white;
+  }
+
+  .slider .ms-Slider-active {
+    background-color: #006098
+  }
+
+  /* .checkbox {
+    box-shadow: #000000;
+  } */

@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { MdDownload } from "react-icons/md";
+import { Button, Checkbox, CheckboxProps, useId } from "@fluentui/react-components";
 import { Label, Slider } from "@fluentui/react";
 
 export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
@@ -13,6 +14,14 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
 
   const [secondaryColor, setSecondaryColor] = useState<string>("#FFFFFF"); // Initial secondary color
   const [gradient, setGradient] = useState(false);
+  
+
+  // Slider
+  const id = useId();
+  // const min = 20;
+  // const max = 100;
+
+  const [checked, setChecked] = React.useState<CheckboxProps["checked"]>(true);
 
   // DOWNLOAD AS PNG OR SVG
 
@@ -23,11 +32,26 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     const svgElement = svgDoc.documentElement;
 
     // Apply the selected options
-    svgElement.setAttribute("fill", primaryColor);
+    if (gradient) {
+      const linearGradient = svgDoc.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "linearGradient"
+      );
+      linearGradient.setAttribute("id", `gradient-${iconName}`);
+      linearGradient.innerHTML = `
+        <stop offset="0%" stop-color="${secondaryColor}" />
+        <stop offset="100%" stop-color="${primaryColor}" />
+      `;
+      svgElement.appendChild(linearGradient);
+      svgElement.setAttribute("stroke", `url(#gradient-${iconName})`);
+    } else {
+      svgElement.setAttribute("fill", primaryColor);
+    }
+
     svgElement.setAttribute("width", `${size}px`);
     svgElement.setAttribute("height", `${size}px`);
-    svgElement.setAttribute("strokeWidth", `${swidth}px`);
-    svgElement.setAttribute("stroke", primaryColor);
+    svgElement.setAttribute("stroke-width", `${swidth}px`);
+    // svgElement.setAttribute("stroke", primaryColor);
 
     const modifiedSvgData = new XMLSerializer().serializeToString(svgElement);
     const blob = new Blob([modifiedSvgData], { type: "image/svg+xml" });
@@ -46,11 +70,26 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     const svgElement = svgDoc.documentElement;
 
     // Apply the selected options
-    svgElement.setAttribute("fill", primaryColor);
+    if (gradient) {
+      const linearGradient = svgDoc.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "linearGradient"
+      );
+      linearGradient.setAttribute("id", `gradient-${iconName}`);
+      linearGradient.innerHTML = `
+        <stop offset="0%" stop-color="${secondaryColor}" />
+        <stop offset="100%" stop-color="${primaryColor}" />
+      `;
+      svgElement.appendChild(linearGradient);
+      svgElement.setAttribute("stroke", `url(#gradient-${iconName})`);
+    } else {
+      svgElement.setAttribute("fill", primaryColor);
+    }
+
     svgElement.setAttribute("width", `${size}px`);
     svgElement.setAttribute("height", `${size}px`);
-    svgElement.setAttribute("strokeWidth", `${swidth}px`);
-    svgElement.setAttribute("stroke", primaryColor);
+    svgElement.setAttribute("stroke-width", `${swidth}px`);
+    // svgElement.setAttribute("stroke", primaryColor);
 
     // Convert SVG to PNG
     const canvas = document.createElement("canvas");
@@ -84,19 +123,27 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
       }
     };
 
-    svgImage.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
+    svgImage.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      svgString
+    )}`;
   };
 
   // HANDLING CHANGE
-  function handleSizeChange(event: ChangeEvent<HTMLInputElement>): void {
-    setSize(Number(event.target.value));
-  }
+  const handleSizeChange = (value: number) => {
+    setSize(value);
+  };
 
-  function handleStrokeWidthChange(event: ChangeEvent<HTMLInputElement>): void {
-    setStrokeWidth(Number(event.target.value));
-  }
+  const handleStrokeWidthChange = (value: number) => {
+    setStrokeWidth(value);
+  };
 
-  function handlePrimaryColorChange(event: ChangeEvent<HTMLInputElement>): void {
+  // function handleStrokeWidthChange(event: ChangeEvent<HTMLInputElement>): void {
+  //   setStrokeWidth(Number(event.target.value));
+  // }
+
+  function handlePrimaryColorChange(
+    event: ChangeEvent<HTMLInputElement>
+  ): void {
     setPrimaryColor(event.target.value);
   }
 
@@ -105,6 +152,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   ) => {
     setSecondaryColor(event.target.value);
   };
+  
 
   // CONTENT
   return (
@@ -121,7 +169,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
         <div className="md:w-1/5 w-full">
           <div className="sidenav pt-4">
             <div className="container">
-              <label htmlFor="primaryColor">Select color: </label>
+              <label htmlFor="primaryColor"></label>
               <label htmlFor="primaryColor">
                 {gradient ? "Choose Color " : "Choose Color "}
                 {/* {gradient ? "Select Start color: " : "Select color: "} */}
@@ -149,7 +197,14 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 id="isGradient"
               />
 
-              <label htmlFor="size">Size {size} px</label>
+              {/* <Checkbox
+      checked={checked}
+      onChange={() => setGradient(!gradient)}
+      label="Checked"
+      id="isGradient"
+    /> */}
+
+              {/* <label htmlFor="size">Size {size} px</label>
               <input
                 type="range"
                 id="size"
@@ -157,14 +212,29 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 max="100"
                 value={size}
                 onChange={handleSizeChange}
+              /> */}
+
+              <Label htmlFor={id}></Label>
+              <Slider
+                value={size}
+                min={20}
+                max={100}
+                id={id}
+                onChange={handleSizeChange}
+                className="slider"
               />
 
+              <Label htmlFor={id}></Label>
+              <Slider
+                value={swidth}
+                min={1}
+                max={20}
+                id={id}
+                onChange={handleStrokeWidthChange}
+                className="slider"
+              />
 
-
-
-
-
-              <label htmlFor="strokeWidth">Stroke Width {swidth} px</label>
+              {/* <label htmlFor="strokeWidth">Stroke Width {swidth} px</label>
               <input
                 type="range"
                 id="strokeWidth"
@@ -172,7 +242,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 max="20"
                 value={swidth}
                 onChange={handleStrokeWidthChange}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -212,10 +282,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                                   gradient ? secondaryColor : primaryColor
                                 }
                               />
-                              <stop
-                                offset="100%"
-                                stopColor={primaryColor}
-                              />
+                              <stop offset="100%" stopColor={primaryColor} />
                             </linearGradient>
                           </defs>
                           <g>
