@@ -25,7 +25,7 @@ function page() {
   return (
     <div>  
         <div className="heading">
-            <h1>DataBalk Icon Library 2.0</h1>
+            <h1>DataBalk Icoon Bibliotheek 2.0</h1>
         </div>
 
         <IconPage icons={icons}/>

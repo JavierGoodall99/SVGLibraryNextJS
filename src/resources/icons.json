@@ -1,0 +1,19 @@
+{
+  "icons": [
+    {
+      "name": "Schild",
+      "path": "icons\\Schild.svg",
+      "category": "Category 2"
+    },
+    {
+      "name": "Test SVG-04",
+      "path": "icons\\Test SVG-04.svg",
+      "category": ""
+    },
+    {
+      "name": "Wijzende-vinger",
+      "path": "icons\\Wijzende-vinger.svg",
+      "category": ""
+    }
+  ]
+}

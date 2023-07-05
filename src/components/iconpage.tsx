@@ -2,26 +2,55 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { MdDownload } from "react-icons/md";
-import { Button, Checkbox, CheckboxProps, useId } from "@fluentui/react-components";
+import {
+  Button,
+  Checkbox,
+  CheckboxProps,
+  useId,
+} from "@fluentui/react-components";
 import { Label, Slider } from "@fluentui/react";
 
 export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   const [fill, setFill] = useState("#ffffff");
   const [primaryColor, setPrimaryColor] = useState<string>("#000000"); // Initial primary color
   const [size, setSize] = useState<number>(80); // Initial size
-  const [swidth, setStrokeWidth] = useState<number>(1); // Initial stroke width
+  const [swidth, setStrokeWidth] = useState<number>(5); // Initial stroke width
   const [searchQuery, setSearchQuery] = useState<string>("");
-
   const [secondaryColor, setSecondaryColor] = useState<string>("#FFFFFF"); // Initial secondary color
   const [gradient, setGradient] = useState(false);
-  
-
-  // Slider
   const id = useId();
-  // const min = 20;
-  // const max = 100;
+  const [category, setCategory] = useState<string>("all"); // Initial category
 
-  const [checked, setChecked] = React.useState<CheckboxProps["checked"]>(true);
+ 
+
+
+
+
+  // Create a category filter based on the selected category
+  const categoryFilter = (iconName: string) => {
+    if (category === "all") {
+      return true; // Show all icons when the category is set to "all"
+    }
+
+    // Assuming you have the SVG content as a string for each icon
+    const svgData = icons[iconName];
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
+    const categoryElement = svgDoc.querySelector("metadata > category");
+
+    if (categoryElement) {
+      const iconCategory = categoryElement.textContent;
+      return iconCategory === category;
+    }
+
+    return false; // Skip the icon if the category is not found in the metadata
+  };
+
+
+
+
+
+
 
   // DOWNLOAD AS PNG OR SVG
 
@@ -128,6 +157,12 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     )}`;
   };
 
+
+
+
+
+
+
   // HANDLING CHANGE
   const handleSizeChange = (value: number) => {
     setSize(value);
@@ -152,15 +187,38 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   ) => {
     setSecondaryColor(event.target.value);
   };
+
+
+
+
+
+
   
 
   // CONTENT
   return (
     <div>
       <div className="search">
+        <select
+          className="m-5 p-3 text-xl bg-white border border-gray-300 rounded-lg shadow-md focus:outline-none focus:border-blue-500"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="all" className="text-gray-500">
+            All Categories
+          </option>
+          <option value="Technology" className="text-gray-500">
+            Technology
+          </option>
+          <option value="Home" className="text-gray-500">
+            Home
+          </option>
+          {/* Add more options for each category */}
+        </select>
+
         <input
           type="text"
-          placeholder="Search icons"
+          placeholder="Zoek iconen"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -171,7 +229,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
             <div className="container">
               <label htmlFor="primaryColor"></label>
               <label htmlFor="primaryColor">
-                {gradient ? "Choose Color " : "Choose Color "}
+                {gradient ? "Kies een kleur " : "Kies een kleur "}
                 {/* {gradient ? "Select Start color: " : "Select color: "} */}
               </label>
               <input
@@ -181,7 +239,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
               />
               {gradient && (
                 <>
-                  <label htmlFor="secondaryColor">Second Color</label>
+                  <label htmlFor="secondaryColor">Tweede kleur</label>
                   <input
                     type="color"
                     value={secondaryColor}
@@ -190,7 +248,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 </>
               )}
 
-              <label htmlFor="isGradient">Tick for Gradient</label>
+              <label htmlFor="isGradient">Vink voor Verloop aan</label>
               <input
                 type="checkbox"
                 onChange={() => setGradient(!gradient)}
@@ -228,7 +286,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
               <Slider
                 value={swidth}
                 min={1}
-                max={20}
+                max={10}
                 id={id}
                 onChange={handleStrokeWidthChange}
                 className="slider"
@@ -254,6 +312,10 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 iconName.toLowerCase().indexOf(searchQuery.toLowerCase()) === -1
               ) {
                 return null;
+              }
+
+              if (!categoryFilter(iconName)) {
+                return null; // Skip the icon if it doesn't match the selected category
               }
 
               return (
