@@ -6,9 +6,27 @@ import {
   Button,
   Checkbox,
   CheckboxProps,
+  Dropdown,
+  makeStyles,
+  Option,
+  shorthands,
   useId,
+  DropdownProps,
 } from "@fluentui/react-components";
 import { Label, Slider } from "@fluentui/react";
+
+
+
+// const useStyles = makeStyles({
+//   root: {
+//     // Stack the label above the field with a gap
+//     display: "grid",
+//     gridTemplateRows: "repeat(1fr)",
+//     justifyItems: "start",
+//     ...shorthands.gap("2px"),
+//     maxWidth: "400px",
+//   },
+// });
 
 export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   const [fill, setFill] = useState("#ffffff");
@@ -21,12 +39,27 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   const id = useId();
   const [category, setCategory] = useState<string>("all"); // Initial category
 
+
+
+  // const dropdownId = useId("dropdown-default");
+  // const options = [
+  //   "Technology",
+  //   "Caterpillar",
+  //   "Corgi",
+  //   "Chupacabra",
+  //   "Dog",
+  //   "Ferret",
+  //   "Fish",
+  //   "Fox",
+  //   "Hamster",
+  //   "Snake",
+  // ];
+  // const styles = useStyles();
  
 
 
 
-
-  // Create a category filter based on the selected category
+// Category Filter
   const categoryFilter = (iconName: string) => {
     if (category === "all") {
       return true;
@@ -34,16 +67,18 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     const svgData = icons[iconName];
     const parser = new DOMParser();
     const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
-    const categoryElement = svgDoc.querySelector("metadata > category");
-
-    if (categoryElement) {
-      const iconCategory = categoryElement.textContent;
-      return iconCategory === category;
+    const categoryElements = svgDoc.querySelectorAll("metadata > category");
+  
+    for (let i = 0; i < categoryElements.length; i++) {
+      const iconCategory = categoryElements[i].textContent;
+      if (iconCategory === category) {
+        return true;
+      }
     }
-
+  
     return false; 
   };
-
+  
 
 
 
@@ -154,8 +189,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
 
 
 
-
-
   // HANDLING CHANGE
   const handleSizeChange = (value: number) => {
     setSize(value);
@@ -181,10 +214,25 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
 
 
 
+
+
   // CONTENT
   return (
     <div>
       <div className="search">
+      {/* <div className={styles.root}>
+                <label id={dropdownId}>Best pet</label>
+                <Dropdown
+                  aria-labelledby={dropdownId}
+                  placeholder="Select an animal"
+                >
+                  {options.map((option) => (
+                    <Option key={option} disabled={option === "Ferret"}>
+                      {option}
+                    </Option>
+                  ))}
+                </Dropdown>
+              </div> */}
         <select
           className="m-5 p-3 text-xl bg-white border border-gray-300 rounded-lg shadow-md focus:outline-none focus:border-blue-500"
           value={category}

@@ -3,17 +3,17 @@
     {
       "name": "Schild",
       "path": "icons\\Schild.svg",
-      "category": "Category 2"
+      "category": "Technology"
     },
     {
       "name": "Test SVG-04",
       "path": "icons\\Test SVG-04.svg",
-      "category": ""
+      "category": "Technology"
     },
     {
       "name": "Wijzende-vinger",
       "path": "icons\\Wijzende-vinger.svg",
-      "category": ""
+      "category": "Home"
     }
   ]
 }
