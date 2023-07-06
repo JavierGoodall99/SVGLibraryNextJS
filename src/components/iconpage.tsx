@@ -29,10 +29,8 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   // Create a category filter based on the selected category
   const categoryFilter = (iconName: string) => {
     if (category === "all") {
-      return true; // Show all icons when the category is set to "all"
+      return true;
     }
-
-    // Assuming you have the SVG content as a string for each icon
     const svgData = icons[iconName];
     const parser = new DOMParser();
     const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
@@ -43,7 +41,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
       return iconCategory === category;
     }
 
-    return false; // Skip the icon if the category is not found in the metadata
+    return false; 
   };
 
 
@@ -60,7 +58,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
     const svgElement = svgDoc.documentElement;
 
-    // Apply the selected options
     if (gradient) {
       const linearGradient = svgDoc.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -98,7 +95,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
     const svgElement = svgDoc.documentElement;
 
-    // Apply the selected options
     if (gradient) {
       const linearGradient = svgDoc.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -118,7 +114,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
     svgElement.setAttribute("width", `${size}px`);
     svgElement.setAttribute("height", `${size}px`);
     svgElement.setAttribute("stroke-width", `${swidth}px`);
-    // svgElement.setAttribute("stroke", primaryColor);
 
     // Convert SVG to PNG
     const canvas = document.createElement("canvas");
@@ -161,8 +156,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
 
 
 
-
-
   // HANDLING CHANGE
   const handleSizeChange = (value: number) => {
     setSize(value);
@@ -171,10 +164,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
   const handleStrokeWidthChange = (value: number) => {
     setStrokeWidth(value);
   };
-
-  // function handleStrokeWidthChange(event: ChangeEvent<HTMLInputElement>): void {
-  //   setStrokeWidth(Number(event.target.value));
-  // }
 
   function handlePrimaryColorChange(
     event: ChangeEvent<HTMLInputElement>
@@ -192,9 +181,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
 
 
 
-
-  
-
   // CONTENT
   return (
     <div>
@@ -205,7 +191,7 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="all" className="text-gray-500">
-            All Categories
+          Alle Categorieën
           </option>
           <option value="Technology" className="text-gray-500">
             Technology
@@ -254,24 +240,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 onChange={() => setGradient(!gradient)}
                 id="isGradient"
               />
-
-              {/* <Checkbox
-      checked={checked}
-      onChange={() => setGradient(!gradient)}
-      label="Checked"
-      id="isGradient"
-    /> */}
-
-              {/* <label htmlFor="size">Size {size} px</label>
-              <input
-                type="range"
-                id="size"
-                min="20"
-                max="100"
-                value={size}
-                onChange={handleSizeChange}
-              /> */}
-
               <Label htmlFor={id}></Label>
               <Slider
                 value={size}
@@ -291,16 +259,6 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 onChange={handleStrokeWidthChange}
                 className="slider"
               />
-
-              {/* <label htmlFor="strokeWidth">Stroke Width {swidth} px</label>
-              <input
-                type="range"
-                id="strokeWidth"
-                min="1"
-                max="20"
-                value={swidth}
-                onChange={handleStrokeWidthChange}
-              /> */}
             </div>
           </div>
         </div>
@@ -322,8 +280,8 @@ export const IconPage = ({ icons }: { icons: { [key: string]: string } }) => {
                 <div className="relative group" key={iconName}>
                   <div className="group-hover:bg-white bg-white shadow group-hover:shadow rounded-xl p-4 duration-100">
                     <div>
-                      <h6 className="text-sm">{iconName}</h6>
-                      <div
+                      <h6 className="text-xs text-center">{iconName}</h6>
+                      <div className="m-auto"
                         style={{
                           width: `${size}px`,
                           height: `${size}px`,
